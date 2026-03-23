@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>JobConnect | Find your dream job</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+ 
+</head>
+<body>
+
+  <!-- Header / Navigation -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <i class="fas fa-briefcase"></i> JobConnect
+      </a>
+      <nav class="nav-links">
+        <a href="#" class="active">Home</a>
+        <a href="#">Jobs</a>
+        <a href="#">Companies</a>
+        <a href="#">Contact</a>
+      </nav>
+      <div class="nav-buttons">
+        <button class="btn-outline">Sign In</button>
+        <button class="btn-primary">Post a Job</button>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section + Filters -->
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <span class="badge">🔥 10,000+ active jobs</span>
+        <h1>Find your <span class="gradient-text">dream career</span> today</h1>
+        <p>Explore thousands of opportunities from top companies. Remote, full-time, freelance — we’ve got you covered.</p>
+      </div>
+
+      <!-- Search & Filter Card -->
+      <div class="filter-card">
+        <div class="filter-row">
+          <div class="filter-group">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchKeyword" placeholder="Job title, company, or keyword">
+          </div>
+          <div class="filter-group">
+            <i class="fas fa-map-marker-alt"></i>
+            <input type="text" id="searchLocation" placeholder="City, state, or remote">
+          </div>
+          <button class="btn-search" id="searchBtn">Search Jobs</button>
+          <button class="btn-reset" id="resetBtn">Reset</button>
+        </div>
+
+        <!-- Job type filters (chips) -->
+        <div class="job-type-filters">
+          <span class="filter-label">Job type :</span>
+          <div class="type-chips" id="typeChips">
+            <button data-type="All" class="chip active">All</button>
+            <button data-type="Full-time" class="chip">Full-time</button>
+            <button data-type="Part-time" class="chip">Part-time</button>
+            <button data-type="Remote" class="chip">Remote</button>
+            <button data-type="Contract" class="chip">Contract</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Job Listings Section -->
+  <main class="main">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2>Recent opportunities</h2>
+          <p id="jobCountMsg" class="job-count-text">Showing <span id="jobCount">0</span> jobs</p>
+        </div>
+        <div class="view-options">
+          <i class="fas fa-th-large active-view"></i>
+          <i class="fas fa-list"></i>
+        </div>
+      </div>
+
+      <div id="jobsContainer" class="jobs-grid">
+        <!-- dynamic job cards injected here -->
+      </div>
+
+      <!-- Empty state (hidden by default) -->
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <i class="fas fa-briefcase-slash"></i>
+        <h3>No matching jobs found</h3>
+        <p>Try adjusting your filters or search terms.</p>
+        <button class="btn-outline" id="clearAllFiltersBtn">Clear all filters</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="logo-footer">
+          <i class="fas fa-briefcase"></i> JobConnect
+        </div>
+        <p>Connecting talent with opportunity. Your next career move starts here.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>For Jobseekers</h4>
+        <ul>
+          <li><a href="#">Browse Jobs</a></li>
+          <li><a href="#">Career Advice</a></li>
+          <li><a href="#">Resume Builder</a></li>
+          <li><a href="#">Salary Guide</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>For Employers</h4>
+        <ul>
+          <li><a href="#">Post a Job</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Talent Solutions</a></li>
+          <li><a href="#">Recruitment Tools</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2025 JobConnect. All rights reserved. Designed for dream chasers.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
