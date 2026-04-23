@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>JobConnect | Find your dream job & Build Resume</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ========== GLOBAL RESET & VARIABLES ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #10b981;
+      --dark: #0f172a;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-50);
+      color: var(--dark);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ========== BUTTONS ========== */
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.25rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--gray-300);
+      padding: 0.6rem 1.25rem;
+      border-radius: 2rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--gray-800);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    .btn-search {
+      background: var(--primary);
+      border: none;
+      padding: 0 1.8rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .btn-search:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-reset {
+      background: transparent;
+      border: 1px solid var(--gray-300);
+      padding: 0 1.2rem;
+      border-radius: 2rem;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--gray-600);
+      transition: 0.2s;
+    }
+
+    .btn-reset:hover {
+      background: var(--gray-100);
+      border-color: var(--gray-400);
+    }
+
+    /* ========== HEADER ========== */
+    .header {
+      background: white;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(4px);
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo i {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray-600);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--gray-800);
+    }
+
+    /* ========== HERO SECTION ========== */
+    .hero {
+      background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+      padding: 3rem 0 4rem 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .hero-content {
+      text-align: center;
+    }
+
+    .badge {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      padding: 0.25rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-block;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-text h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .gradient-text {
+      background: linear-gradient(120deg, var(--primary), var(--secondary));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      color: var(--gray-600);
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+    }
+
+    /* FILTER CARD */
+    .filter-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 1.8rem;
+      margin-top: 1rem;
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-group {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      background: var(--gray-100);
+      border-radius: 3rem;
+      padding: 0.2rem 1rem;
+      border: 1px solid var(--gray-200);
+      transition: all 0.2s;
+    }
+
+    .filter-group:focus-within {
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    .filter-group i {
+      color: var(--gray-400);
+      margin-right: 0.6rem;
+    }
+
+    .filter-group input {
+      border: none;
+      background: transparent;
+      padding: 0.9rem 0;
+      width: 100%;
+      font-size: 0.95rem;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .job-type-filters {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.8rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--gray-200);
+      margin-top: 0.5rem;
+    }
+
+    .filter-label {
+      font-weight: 500;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+    }
+
+    .type-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .chip {
+      background: var(--gray-100);
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--gray-700);
+    }
+
+    .chip.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .chip:hover:not(.active) {
+      background: var(--gray-200);
+    }
+
+    /* ========== JOB LISTINGS ========== */
+    .main {
+      padding: 3rem 0 3rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .job-count-text {
+      color: var(--gray-600);
+      margin-top: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    .view-options {
+      display: flex;
+      gap: 0.8rem;
+      font-size: 1.2rem;
+      color: var(--gray-400);
+      cursor: pointer;
+    }
+
+    .view-options i.active-view {
+      color: var(--primary);
+    }
+
+    /* Jobs Grid */
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .job-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      transition: all 0.25s ease;
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-sm);
+      cursor: default;
+    }
+
+    .job-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--gray-300);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .company-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gray-100);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: var(--primary);
+    }
+
+    .job-type-badge {
+      background: var(--gray-100);
+      padding: 0.2rem 0.7rem;
+      border-radius: 2rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+
+    .job-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 0.5rem 0 0.25rem;
+    }
+
+    .company-name {
+      color: var(--gray-600);
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .job-details {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+      font-size: 0.85rem;
+      color: var(--gray-600);
+    }
+
+    .job-details i {
+      width: 18px;
+      margin-right: 0.3rem;
+    }
+
+    .job-description {
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin-bottom: 1.2rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      border-top: 1px solid var(--gray-100);
+      padding-top: 1rem;
+    }
+
+    .salary {
+      font-weight: 700;
+      color: var(--secondary);
+      font-size: 0.9rem;
+    }
+
+    .apply-btn {
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 0.3rem 1rem;
+      border-radius: 2rem;
+      font-weight: 500;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .apply-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: white;
+      border-radius: var(--radius-lg);
+      margin-top: 2rem;
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      color: var(--gray-300);
+      margin-bottom: 1rem;
+    }
+
+    .empty-state h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .resume-section {
+      margin-top: 3rem;
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-200);
+    }
+
+    .resume-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid var(--gray-100);
+      padding-bottom: 1rem;
+    }
+
+    .resume-header h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .resume-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .resume-item {
+      background: var(--gray-50);
+      border-radius: 1rem;
+      padding: 1rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border: 1px solid var(--gray-200);
+      transition: 0.2s;
+    }
+
+    .resume-info h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .resume-info p {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+    }
+
+    .resume-actions {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 2rem;
+      transition: 0.2s;
+      color: var(--gray-600);
+    }
+
+    .icon-btn.view-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+    .icon-btn.delete-btn:hover {
+      background: #ef4444;
+      color: white;
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.2s ease;
+    }
+    .modal-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .modal-container {
+      background: white;
+      max-width: 650px;
+      width: 90%;
+      max-height: 85vh;
+      border-radius: 1.5rem;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      padding: 1.8rem;
+      position: relative;
+    }
+    .modal-container h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      font-size: 0.85rem;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 0.8rem;
+      border: 1px solid var(--gray-200);
+      font-family: inherit;
+      resize: vertical;
+    }
+    .form-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .form-row .form-group {
+      flex: 1;
+    }
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    hr {
+      margin: 1rem 0;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      color: #cbd5e1;
+      padding-top: 3rem;
+      margin-top: 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      padding-bottom: 2rem;
+    }
+    .logo-footer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    .footer-col p {
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .social-icons a {
+      color: var(--gray-400);
+      background: rgba(255, 255, 255, 0.05);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: 0.2s;
+      text-decoration: none;
+    }
+    .social-icons a:hover {
+      background: var(--primary);
+      color: white;
+    }
+    .footer-col h4 {
+      color: white;
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin-bottom: 0.6rem;
+    }
+    .footer-col ul li a {
+      color: var(--gray-400);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover {
+      color: white;
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--gray-500);
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-buttons .btn-outline:first-child { display: none; }
+      .mobile-menu-btn { display: block; }
+      .hero-text h1 { font-size: 2rem; }
+      .filter-row { flex-direction: column; }
+      .jobs-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container nav-container">
+      <a href="#" class="logo"><i class="fas fa-briefcase"></i> JobConnect</a>
+      <nav class="nav-links">
+        <a href="#" class="active">Home</a>
+        <a href="#">Jobs</a>
+        <a href="#">Companies</a>
+        <a href="#">Contact</a>
+      </nav>
+      <div class="nav-buttons">
+        <button class="btn-outline">Sign In</button>
+        <button class="btn-primary" id="createResumeBtnNav"><i class="fas fa-file-alt"></i> Create Resume</button>
+        <button class="btn-primary">Post a Job</button>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <span class="badge">🔥 10,000+ active jobs</span>
+        <h1>Find your <span class="gradient-text">dream career</span> today</h1>
+        <p>Explore thousands of opportunities from top companies. Build your resume and apply seamlessly.</p>
+      </div>
+      <div class="filter-card">
+        <div class="filter-row">
+          <div class="filter-group"><i class="fas fa-search"></i><input type="text" id="searchKeyword" placeholder="Job title, company, or keyword"></div>
+          <div class="filter-group"><i class="fas fa-map-marker-alt"></i><input type="text" id="searchLocation" placeholder="City, state, or remote"></div>
+          <button class="btn-search" id="searchBtn">Search Jobs</button>
+          <button class="btn-reset" id="resetBtn">Reset</button>
+        </div>
+        <div class="job-type-filters">
+          <span class="filter-label">Job type :</span>
+          <div class="type-chips" id="typeChips">
+            <button data-type="All" class="chip active">All</button>
+            <button data-type="Full-time" class="chip">Full-time</button>
+            <button data-type="Part-time" class="chip">Part-time</button>
+            <button data-type="Remote" class="chip">Remote</button>
+            <button data-type="Contract" class="chip">Contract</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="main">
+    <div class="container">
+      <div class="section-header">
+        <div><h2>Recent opportunities</h2><p id="jobCountMsg" class="job-count-text">Showing <span id="jobCount">0</span> jobs</p></div>
+        <div class="view-options"><i class="fas fa-th-large active-view"></i><i class="fas fa-list"></i></div>
+      </div>
+      <div id="jobsContainer" class="jobs-grid"></div>
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <i class="fas fa-briefcase-slash"></i><h3>No matching jobs found</h3><p>Try adjusting your filters or search terms.</p>
+        <button class="btn-outline" id="clearAllFiltersBtn">Clear all filters</button>
+      </div>
+
+      <!-- RESUME BUILDER SECTION (My Resumes) -->
+      <div class="resume-section" id="resumeSection">
+        <div class="resume-header">
+          <h3><i class="fas fa-file-signature"></i> Your Resumes</h3>
+          <button class="btn-outline" id="openResumeModalBtn"><i class="fas fa-plus"></i> Create New Resume</button>
+        </div>
+        <div id="resumeListContainer" class="resume-list">
+          <p style="color: var(--gray-400); text-align:center;">No resumes yet. Click "Create New Resume" to build your professional profile.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col"><div class="logo-footer"><i class="fas fa-briefcase"></i> JobConnect</div><p>Connecting talent with opportunity.</p><div class="social-icons"><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+      <div class="footer-col"><h4>For Jobseekers</h4><ul><li><a href="#">Browse Jobs</a></li><li><a href="#">Career Advice</a></li><li><a href="#">Resume Builder</a></li></ul></div>
+      <div class="footer-col"><h4>For Employers</h4><ul><li><a href="#">Post a Job</a></li><li><a href="#">Pricing</a></li></ul></div>
+      <div class="footer-col"><h4>Resources</h4><ul><li><a href="#">Blog</a></li><li><a href="#">Help Center</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><div class="container"><p>&copy; 2025 JobConnect. All rights reserved.</p></div></div>
+  </footer>
+
+  <!-- Modal: Create Resume -->
+  <div id="resumeModal" class="modal-overlay">
+    <div class="modal-container">
+      <button class="close-modal" id="closeModalBtn">&times;</button>
+      <h2><i class="fas fa-pen-alt"></i> Build your resume</h2>
+      <form id="resumeForm">
+        <div class="form-row"><div class="form-group"><label>Full Name *</label><input type="text" id="fullName" required></div><div class="form-group"><label>Professional Title</label><input type="text" id="profTitle" placeholder="e.g., Frontend Developer"></div></div>
+        <div class="form-row"><div class="form-group"><label>Email</label><input type="email" id="email"></div><div class="form-group"><label>Phone</label><input type="text" id="phone"></div></div>
+        <div class="form-group"><label>Location</label><input type="text" id="locationResume" placeholder="City, Remote"></div>
+        <div class="form-group"><label>Professional Summary</label><textarea rows="2" id="summary" placeholder="Brief intro about yourself..."></textarea></div>
+        <div class="form-group"><label>Skills (comma separated)</label><input type="text" id="skills" placeholder="React, Node.js, UX design"></div>
+        <div class="form-group"><label>Work Experience</label><textarea rows="3" id="experience" placeholder="Company A - Software Engineer (2022-2025)&#10;Company B - Intern (2020-2022)"></textarea></div>
+        <div class="form-group"><label>Education</label><textarea rows="2" id="education" placeholder="B.Sc. Computer Science, University of Tech"></textarea></div>
+        <div class="modal-buttons"><button type="button" class="btn-outline" id="cancelModalBtn">Cancel</button><button type="submit" class="btn-primary">Save Resume</button></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: View Resume Details -->
+  <div id="viewResumeModal" class="modal-overlay">
+    <div class="modal-container">
+      <button class="close-modal" id="closeViewModalBtn">&times;</button>
+      <h2><i class="fas fa-id-card"></i> Resume Preview</h2>
+      <div id="resumePreviewContent" style="margin-top: 1rem;"></div>
+      <div class="modal-buttons"><button class="btn-primary" id="closeViewBtn">Close</button></div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // ---------- EXISTING JOBS DATA ----------
+      const jobsData = [
+        { id: 1, title: "Frontend Developer", company: "TechCorp", location: "San Francisco, CA (Remote)", type: "Remote", salary: "$90k - $120k", description: "Build responsive interfaces with React, Tailwind.", icon: "💻" },
+        { id: 2, title: "UX Designer", company: "Designify", location: "New York, NY", type: "Full-time", salary: "$85k - $105k", description: "Create user-centered designs.", icon: "🎨" },
+        { id: 3, title: "Backend Engineer (Node.js)", company: "ScaleFlow", location: "Austin, TX", type: "Full-time", salary: "$110k - $140k", description: "Develop APIs, optimize databases.", icon: "⚙️" },
+        { id: 4, title: "Data Analyst", company: "Insightlytics", location: "Chicago, IL", type: "Part-time", salary: "$45 - $60 / hr", description: "Analyze datasets, build dashboards.", icon: "📊" },
+        { id: 5, title: "DevOps Engineer", company: "CloudNative", location: "Seattle, WA", type: "Contract", salary: "$130k - $160k", description: "Manage AWS infrastructure.", icon: "☁️" },
+        { id: 6, title: "Product Manager", company: "InnovateLabs", location: "Remote", type: "Remote", salary: "$120k - $150k", description: "Lead product strategy.", icon: "📱" },
+        { id: 7, title: "QA Automation Engineer", company: "QualityFirst", location: "Boston, MA", type: "Full-time", salary: "$85k - $105k", description: "Write test scripts.", icon: "🧪" },
+        { id: 8, title: "Technical Writer", company: "DocuMint", location: "Remote", type: "Contract", salary: "$70k - $90k", description: "Create documentation.", icon: "📝" },
+      ];
+
+      // DOM elements jobs
+      const jobsContainer = document.getElementById("jobsContainer");
+      const searchKeyword = document.getElementById("searchKeyword");
+      const searchLocation = document.getElementById("searchLocation");
+      const searchBtn = document.getElementById("searchBtn");
+      const resetBtn = document.getElementById("resetBtn");
+      const clearAllFiltersBtn = document.getElementById("clearAllFiltersBtn");
+      const jobCountSpan = document.getElementById("jobCount");
+      const emptyStateDiv = document.getElementById("emptyState");
+      const typeChips = document.querySelectorAll(".chip");
+
+      let activeType = "All";
+      let keyword = "", locationFilter = "";
+
+      function renderJobs() {
+        let filtered = jobsData.filter(job => {
+          if (activeType !== "All" && job.type !== activeType) return false;
+          if (keyword.trim()) {
+            const term = keyword.toLowerCase();
+            if (!job.title.toLowerCase().includes(term) && !job.company.toLowerCase().includes(term)) return false;
+          }
+          if (locationFilter.trim() && !job.location.toLowerCase().includes(locationFilter.toLowerCase())) return false;
+          return true;
+        });
+        jobCountSpan.textContent = filtered.length;
+        emptyStateDiv.style.display = filtered.length === 0 ? "block" : "none";
+        jobsContainer.style.display = filtered.length === 0 ? "none" : "grid";
+        if (filtered.length) {
+          jobsContainer.innerHTML = filtered.map(job => `
+            <div class="job-card" data-id="${job.id}">
+              <div class="card-header"><div class="company-icon">${job.icon}</div><span class="job-type-badge">${job.type}</span></div>
+              <h3 class="job-title">${job.title}</h3><div class="company-name">${job.company}</div>
+              <div class="job-details"><span><i class="fas fa-map-marker-alt"></i> ${job.location}</span></div>
+              <p class="job-description">${job.description}</p>
+              <div class="card-footer"><span class="salary">${job.salary}</span><button class="apply-btn">Apply Now →</button></div>
+            </div>`).join("");
+          document.querySelectorAll(".apply-btn").forEach(btn => btn.addEventListener("click", () => alert("✨ Demo: Application started! Your resume can be attached.")));
+        } else jobsContainer.innerHTML = "";
+      }
+
+      function updateActiveChip() { typeChips.forEach(chip => chip.getAttribute("data-type") === activeType ? chip.classList.add("active") : chip.classList.remove("active")); }
+      typeChips.forEach(chip => chip.addEventListener("click", () => { activeType = chip.getAttribute("data-type"); updateActiveChip(); renderJobs(); }));
+      function performSearch() { keyword = searchKeyword?.value || ""; locationFilter = searchLocation?.value || ""; renderJobs(); }
+      function resetFilters() { if(searchKeyword) searchKeyword.value = ""; if(searchLocation) searchLocation.value = ""; keyword = ""; locationFilter = ""; activeType = "All"; updateActiveChip(); renderJobs(); }
+      searchBtn?.addEventListener("click", performSearch);
+      resetBtn?.addEventListener("click", resetFilters);
+      clearAllFiltersBtn?.addEventListener("click", resetFilters);
+      if(searchKeyword) searchKeyword.addEventListener("keypress", e => e.key === "Enter" && performSearch());
+      if(searchLocation) searchLocation.addEventListener("keypress", e => e.key === "Enter" && performSearch());
+      
+      // ---------- RESUME BUILDER LOGIC ----------
+      let resumes = JSON.parse(localStorage.getItem("jobconnect_resumes")) || [];
+      const resumeListContainer = document.getElementById("resumeListContainer");
+      const createResumeBtn = document.getElementById("createResumeBtnNav");
+      const openModalBtn = document.getElementById("openResumeModalBtn");
+      const resumeModal = document.getElementById("resumeModal");
+      const viewModal = document.getElementById("viewResumeModal");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const cancelModalBtn = document.getElementById("cancelModalBtn");
+      const closeViewModal = document.getElementById("closeViewModalBtn");
+      const closeViewBtn = document.getElementById("closeViewBtn");
+      const resumeForm = document.getElementById("resumeForm");
+
+      function openModal(modal) { modal.classList.add("active"); }
+      function closeModalFunc(modal) { modal.classList.remove("active"); }
+      function saveResumesToLocal() { localStorage.setItem("jobconnect_resumes", JSON.stringify(resumes)); renderResumeList(); }
+
+      function renderResumeList() {
+        if(!resumeListContainer) return;
+        if(resumes.length === 0) {
+          resumeListContainer.innerHTML = `<p style="color: var(--gray-400); text-align:center;">No resumes yet. Click "Create New Resume" to build your professional profile.</p>`;
+          return;
+        }
+        resumeListContainer.innerHTML = resumes.map(res => `
+          <div class="resume-item" data-id="${res.id}">
+            <div class="resume-info"><h4>${res.fullName || "Unnamed"}</h4><p>${res.profTitle || "Professional"} • ${res.email || "No email"}</p></div>
+            <div class="resume-actions">
+              <button class="icon-btn view-btn" data-id="${res.id}" title="View Resume"><i class="fas fa-eye"></i></button>
+              <button class="icon-btn delete-btn" data-id="${res.id}" title="Delete Resume"><i class="fas fa-trash-alt"></i></button>
+            </div>
+          </div>
+        `).join("");
+        document.querySelectorAll(".view-btn").forEach(btn => btn.addEventListener("click", (e) => {
+          const id = parseInt(btn.getAttribute("data-id"));
+          const resume = resumes.find(r => r.id === id);
+          if(resume) showResumeDetails(resume);
+        }));
+        document.querySelectorAll(".delete-btn").forEach(btn => btn.addEventListener("click", (e) => {
+          const id = parseInt(btn.getAttribute("data-id"));
+          resumes = resumes.filter(r => r.id !== id);
+          saveResumesToLocal();
+        }));
+      }
+
+      function showResumeDetails(resume) {
+        const previewDiv = document.getElementById("resumePreviewContent");
+        previewDiv.innerHTML = `
+          <div style="background: var(--gray-50); padding:1rem; border-radius:1rem;"><p><strong>${resume.fullName || "Full name not set"}</strong> • ${resume.profTitle || "Professional"}</p>
+          <hr><p><i class="fas fa-envelope"></i> ${resume.email || "—"} &nbsp; <i class="fas fa-phone"></i> ${resume.phone || "—"} <br> <i class="fas fa-map-marker-alt"></i> ${resume.location || "—"}</p>
+          <p><strong>📌 Summary:</strong> ${resume.summary || "Not provided"}</p>
+          <p><strong>🔧 Skills:</strong> ${resume.skills || "—"}</p>
+          <p><strong>💼 Experience:</strong><br>${(resume.experience || "—").replace(/\n/g,'<br>')}</p>
+          <p><strong>🎓 Education:</strong><br>${(resume.education || "—").replace(/\n/g,'<br>')}</p>
+          </div>
+        `;
+        openModal(viewModal);
+      }
+
+      function addResumeFromForm(e) {
+        e.preventDefault();
+        const fullName = document.getElementById("fullName")?.value.trim();
+        if(!fullName) { alert("Full name is required"); return; }
+        const newResume = {
+          id: Date.now(),
+          fullName: fullName,
+          profTitle: document.getElementById("profTitle")?.value || "",
+          email: document.getElementById("email")?.value || "",
+          phone: document.getElementById("phone")?.value || "",
+          location: document.getElementById("locationResume")?.value || "",
+          summary: document.getElementById("summary")?.value || "",
+          skills: document.getElementById("skills")?.value || "",
+          experience: document.getElementById("experience")?.value || "",
+          education: document.getElementById("education")?.value || "",
+        };
+        resumes.unshift(newResume);
+        saveResumesToLocal();
+        resumeForm.reset();
+        closeModalFunc(resumeModal);
+        alert("✅ Resume saved successfully! You can view it in 'Your Resumes' section.");
+      }
+
+      // Event listeners for modals
+      const openButtons = [createResumeBtn, openModalBtn];
+      openButtons.forEach(btn => btn?.addEventListener("click", () => openModal(resumeModal)));
+      closeModalBtn?.addEventListener("click", () => closeModalFunc(resumeModal));
+      cancelModalBtn?.addEventListener("click", () => closeModalFunc(resumeModal));
+      closeViewModal?.addEventListener("click", () => closeModalFunc(viewModal));
+      closeViewBtn?.addEventListener("click", () => closeModalFunc(viewModal));
+      resumeForm?.addEventListener("submit", addResumeFromForm);
+      window.addEventListener("click", (e) => { if(e.target.classList.contains("modal-overlay")) { closeModalFunc(resumeModal); closeModalFunc(viewModal); } });
+
+      // mobile menu
+      const mobileBtn = document.getElementById("mobileMenuBtn");
+      if(mobileBtn) mobileBtn.addEventListener("click", () => { const links = document.querySelector(".nav-links"); if(links) links.style.display = links.style.display === "flex" ? "" : "flex"; });
+
+      // initial render
+      renderJobs();
+      renderResumeList();
+    });
+  </script>
+</body>
+</html>
