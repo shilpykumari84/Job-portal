@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JobConnect</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F5F5F0; color: #1a1a1a; }
+
+    /* NAV */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; background: #fff; border-bottom: 1px solid #e5e5e5; position: sticky; top: 0; z-index: 10; }
+    .logo { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 18px; color: #1a1a1a; }
+    .logo-icon { background: #4F46E5; color: #fff; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { font-size: 14px; color: #555; text-decoration: none; cursor: pointer; }
+    .nav-links a:hover, .nav-links a.active { color: #4F46E5; }
+    .nav-btns { display: flex; gap: 8px; }
+    .btn { padding: 8px 18px; border-radius: 8px; font-size: 13px; cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.15s; }
+    .btn-outline { border: 1px solid #d1d5db; background: transparent; color: #1a1a1a; }
+    .btn-outline:hover { background: #f3f4f6; }
+    .btn-primary { border: none; background: #4F46E5; color: #fff; }
+    .btn-primary:hover { background: #4338CA; }
+    .btn-green { border: none; background: #059669; color: #fff; }
+    .btn-green:hover { background: #047857; }
+
+    /* HERO */
+    .hero { padding: 60px 32px 40px; text-align: center; background: #fff; border-bottom: 1px solid #e5e5e5; }
+    .hero h1 { font-size: 40px; font-weight: 700; color: #1a1a1a; margin-bottom: 12px; }
+    .hero h1 span { color: #4F46E5; }
+    .hero p { font-size: 16px; color: #6b7280; margin-bottom: 28px; }
+    .search-bar { display: flex; max-width: 600px; margin: 0 auto; gap: 0; border: 1px solid #d1d5db; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .search-bar input { flex: 1; padding: 12px 16px; border: none; outline: none; font-size: 14px; font-family: inherit; }
+    .search-bar button { padding: 12px 20px; background: #4F46E5; color: #fff; border: none; cursor: pointer; font-size: 14px; font-weight: 500; font-family: inherit; }
+    .search-bar button:hover { background: #4338CA; }
+
+    /* FILTERS */
+    .filters { padding: 16px 32px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; background: #fff; border-bottom: 1px solid #e5e5e5; }
+    .filter-label { font-size: 13px; color: #6b7280; margin-right: 4px; }
+    .filter-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid #d1d5db; background: transparent; font-size: 12px; cursor: pointer; color: #374151; font-family: inherit; transition: all 0.15s; }
+    .filter-btn:hover { border-color: #4F46E5; color: #4F46E5; }
+    .filter-btn.active { background: #4F46E5; color: #fff; border-color: #4F46E5; }
+
+    /* MAIN */
+    .main { padding: 28px 32px; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .section-title { font-size: 20px; font-weight: 600; }
+    .section-sub { font-size: 13px; color: #6b7280; margin-top: 3px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+
+    /* JOB CARD */
+    .job-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px; transition: box-shadow 0.15s, border-color 0.15s; }
+    .job-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-color: #c7d2fe; }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+    .job-icon { width: 42px; height: 42px; border-radius: 10px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .badge { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+    .badge-remote { background: #DBEAFE; color: #1E40AF; }
+    .badge-fulltime { background: #D1FAE5; color: #065F46; }
+    .badge-parttime { background: #FEF3C7; color: #92400E; }
+    .badge-contract { background: #F3E8FF; color: #6B21A8; }
+    .job-title { font-size: 15px; font-weight: 600; color: #111; margin-bottom: 2px; }
+    .job-company { font-size: 13px; color: #6b7280; margin-bottom: 8px; }
+    .job-location { display: flex; align-items: center; gap: 4px; font-size: 12px; color: #9ca3af; margin-bottom: 10px; }
+    .job-desc { font-size: 13px; color: #6b7280; line-height: 1.6; margin-bottom: 16px; min-height: 42px; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #f3f4f6; }
+    .salary { font-size: 13px; font-weight: 600; color: #059669; }
+    .apply-btn { padding: 7px 16px; border: 1px solid #d1d5db; border-radius: 20px; background: transparent; color: #374151; font-size: 12px; cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.15s; }
+    .apply-btn:hover { background: #4F46E5; color: #fff; border-color: #4F46E5; }
+
+    /* OVERLAY / MODAL */
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; padding: 16px; }
+    .overlay.active { display: flex; }
+    .modal { background: #fff; border-radius: 16px; padding: 28px; width: 500px; max-width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid #e5e7eb; }
+    .modal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+    .modal-title { font-size: 18px; font-weight: 600; color: #111; }
+    .modal-sub { font-size: 13px; color: #6b7280; margin-top: 4px; }
+    .close-btn { background: none; border: none; cursor: pointer; font-size: 22px; color: #9ca3af; line-height: 1; padding: 0 4px; }
+    .close-btn:hover { color: #374151; }
+
+    /* FORM */
+    .form-group { margin-bottom: 14px; }
+    .form-label { font-size: 12px; font-weight: 500; color: #374151; margin-bottom: 5px; display: block; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 9px 12px; border: 1px solid #d1d5db; border-radius: 8px;
+      background: #fff; color: #111; font-size: 13px; font-family: inherit; outline: none; transition: border-color 0.15s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: #4F46E5; box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
+    .form-textarea { resize: vertical; min-height: 80px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .section-divider { font-size: 11px; font-weight: 600; color: #9ca3af; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 1px solid #f3f4f6; padding-bottom: 6px; margin: 18px 0 12px; }
+    .modal-footer { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+
+    /* SUCCESS */
+    .success-banner { display: none; align-items: center; gap: 8px; background: #ECFDF5; border: 1px solid #6EE7B7; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #065F46; margin-top: 14px; }
+    .success-banner.show { display: flex; }
+
+    /* JOB DETAIL INFO */
+    .job-detail-info { background: #f9fafb; border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; }
+    .detail-row { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; border-bottom: 1px solid #f3f4f6; }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-label { color: #6b7280; }
+    .detail-value { font-weight: 600; color: #111; }
+
+    /* RESUME TABS */
+    .resume-tabs { display: flex; gap: 6px; margin-bottom: 18px; background: #f3f4f6; padding: 4px; border-radius: 10px; }
+    .resume-tab { flex: 1; padding: 7px 10px; border-radius: 8px; border: none; background: transparent; font-size: 12px; cursor: pointer; color: #6b7280; font-family: inherit; font-weight: 500; transition: all 0.15s; }
+    .resume-tab.active { background: #fff; color: #4F46E5; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* SKILLS */
+    .skills-input-wrap { display: flex; gap: 8px; }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .skill-tag { background: #EEF2FF; border: 1px solid #C7D2FE; border-radius: 20px; padding: 4px 12px; font-size: 12px; color: #4338CA; display: flex; align-items: center; gap: 6px; }
+    .skill-tag button { background: none; border: none; cursor: pointer; color: #818CF8; font-size: 14px; line-height: 1; padding: 0; }
+    .skill-tag button:hover { color: #4F46E5; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 60px 20px; color: #9ca3af; }
+    .empty-state i { font-size: 40px; margin-bottom: 12px; display: block; }
+    .empty-state p { font-size: 14px; }
+
+    @media (max-width: 640px) {
+      nav { padding: 12px 16px; }
+      .nav-links { display: none; }
+      .main { padding: 20px 16px; }
+      .hero { padding: 40px 16px 28px; }
+      .hero h1 { font-size: 28px; }
+      .filters { padding: 12px 16px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon"><i class="ti ti-briefcase"></i></div>
+    JobConnect
+  </div>
+  <div class="nav-links">
+    <a class="active">Home</a>
+    <a>Jobs</a>
+    <a>Companies</a>
+    <a>Contact</a>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-outline">Sign In</button>
+    <button class="btn btn-primary" onclick="openResume()"><i class="ti ti-file-text"></i> Create Resume</button>
+    <button class="btn btn-green" onclick="openPostJob()">Post a Job</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Find your <span>dream job</span> today</h1>
+  <p>Thousands of opportunities from top companies worldwide</p>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search jobs, companies, skills..." oninput="filterJobs()" />
+    <button onclick="filterJobs()"><i class="ti ti-search"></i> Search</button>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters">
+  <span class="filter-label">Filter by:</span>
+  <button class="filter-btn active" onclick="setFilter('All', this)">All</button>
+  <button class="filter-btn" onclick="setFilter('Remote', this)">Remote</button>
+  <button class="filter-btn" onclick="setFilter('Full-time', this)">Full-time</button>
+  <button class="filter-btn" onclick="setFilter('Part-time', this)">Part-time</button>
+  <button class="filter-btn" onclick="setFilter('Contract', this)">Contract</button>
+</div>
+
+<!-- JOB GRID -->
+<div class="main">
+  <div class="section-header">
+    <div>
+      <div class="section-title">Recent opportunities</div>
+      <div class="section-sub" id="jobCount">Showing 6 jobs</div>
+    </div>
+  </div>
+  <div class="grid" id="jobGrid"></div>
+</div>
+
+<!-- APPLY MODAL -->
+<div class="overlay" id="applyModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="applyJobTitle">Apply for Position</div>
+        <div class="modal-sub" id="applyJobCompany"></div>
+      </div>
+      <button class="close-btn" onclick="closeModal('applyModal')">×</button>
+    </div>
+    <div class="job-detail-info" id="applyJobDetails"></div>
+    <div class="section-divider">Your information</div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">First name *</label><input class="form-input" id="a-fname" placeholder="Rahul" /></div>
+      <div class="form-group"><label class="form-label">Last name *</label><input class="form-input" id="a-lname" placeholder="Sharma" /></div>
+    </div>
+    <div class="form-group"><label class="form-label">Email *</label><input class="form-input" id="a-email" type="email" placeholder="rahul@example.com" /></div>
+    <div class="form-group"><label class="form-label">Phone</label><input class="form-input" placeholder="+91 98765 43210" /></div>
+    <div class="form-group"><label class="form-label">LinkedIn / Portfolio URL</label><input class="form-input" placeholder="https://linkedin.com/in/yourname" /></div>
+    <div class="form-group"><label class="form-label">Cover letter</label><textarea class="form-textarea" placeholder="Tell us why you're a great fit for this role..."></textarea></div>
+    <div class="form-group"><label class="form-label">Upload resume (PDF/DOC)</label><input class="form-input" type="file" accept=".pdf,.doc,.docx" /></div>
+    <div class="success-banner" id="applySuccess"><i class="ti ti-circle-check" style="font-size:16px"></i> Application submitted! You'll hear back within 5–7 business days.</div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('applyModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitApply()">Submit Application →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CREATE RESUME MODAL -->
+<div class="overlay" id="resumeModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Create your resume</div>
+        <div class="modal-sub">Fill in your details to build a professional resume</div>
+      </div>
+      <button class="close-btn" onclick="closeModal('resumeModal')">×</button>
+    </div>
+    <div class="resume-tabs">
+      <button class="resume-tab active" onclick="switchTab(0)">Personal</button>
+      <button class="resume-tab" onclick="switchTab(1)">Experience</button>
+      <button class="resume-tab" onclick="switchTab(2)">Education</button>
+      <button class="resume-tab" onclick="switchTab(3)">Skills</button>
+    </div>
+
+    <!-- Tab 0: Personal -->
+    <div class="tab-content active" id="tab0">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">First name</label><input class="form-input" id="r-fname" placeholder="Rahul" /></div>
+        <div class="form-group"><label class="form-label">Last name</label><input class="form-input" id="r-lname" placeholder="Sharma" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">Job title</label><input class="form-input" id="r-title" placeholder="Frontend Developer" /></div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="r-email" type="email" placeholder="rahul@example.com" /></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Phone</label><input class="form-input" id="r-phone" placeholder="+91 98765 43210" /></div>
+        <div class="form-group"><label class="form-label">City</label><input class="form-input" id="r-city" placeholder="Gurugram" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">Professional summary</label><textarea class="form-textarea" id="r-summary" placeholder="Brief summary about your experience and strengths..."></textarea></div>
+    </div>
+
+    <!-- Tab 1: Experience -->
+    <div class="tab-content" id="tab1">
+      <div class="form-group"><label class="form-label">Job title</label><input class="form-input" placeholder="Senior Frontend Developer" /></div>
+      <div class="form-group"><label class="form-label">Company</label><input class="form-input" placeholder="TechCorp India" /></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Start date</label><input class="form-input" type="month" /></div>
+        <div class="form-group"><label class="form-label">End date</label><input class="form-input" type="month" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">Responsibilities &amp; achievements</label><textarea class="form-textarea" placeholder="Describe your key responsibilities and achievements..."></textarea></div>
+      <div id="extraExpContainer"></div>
+      <button class="btn btn-outline" style="font-size:12px;margin-top:4px" onclick="addExperience()"><i class="ti ti-plus"></i> Add another experience</button>
+    </div>
+
+    <!-- Tab 2: Education -->
+    <div class="tab-content" id="tab2">
+      <div class="form-group"><label class="form-label">Degree</label><input class="form-input" placeholder="B.Tech Computer Science" /></div>
+      <div class="form-group"><label class="form-label">University / College</label><input class="form-input" placeholder="IIT Delhi" /></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Start year</label><input class="form-input" type="number" placeholder="2018" /></div>
+        <div class="form-group"><label class="form-label">End year</label><input class="form-input" type="number" placeholder="2022" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">CGPA / Percentage (optional)</label><input class="form-input" placeholder="8.5 / 10" /></div>
+    </div>
+
+    <!-- Tab 3: Skills -->
+    <div class="tab-content" id="tab3">
+      <div class="form-group">
+        <label class="form-label">Add skills (press Enter or click Add)</label>
+        <div class="skills-input-wrap">
+          <input class="form-input" id="skillInput" placeholder="e.g. React, Node.js, Python..." onkeydown="if(event.key==='Enter'){addSkill();}" style="flex:1" />
+          <button class="btn btn-primary" onclick="addSkill()">Add</button>
+        </div>
+        <div class="skills-list" id="skillsList"></div>
+      </div>
+      <div class="form-group" style="margin-top:12px"><label class="form-label">Languages known</label><input class="form-input" placeholder="Hindi, English, ..." /></div>
+      <div class="form-group"><label class="form-label">Certifications</label><input class="form-input" placeholder="AWS Certified, Google Analytics, ..." /></div>
+    </div>
+
+    <div class="success-banner" id="resumeSuccess"><i class="ti ti-circle-check" style="font-size:16px"></i> Resume created successfully! You can now download it.</div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('resumeModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitResume()"><i class="ti ti-download"></i> Generate &amp; Download</button>
+    </div>
+  </div>
+</div>
+
+<!-- POST JOB MODAL -->
+<div class="overlay" id="postJobModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div><div class="modal-title">Post a job</div><div class="modal-sub">Reach thousands of candidates instantly</div></div>
+      <button class="close-btn" onclick="closeModal('postJobModal')">×</button>
+    </div>
+    <div class="form-group"><label class="form-label">Job title *</label><input class="form-input" id="pj-title" placeholder="e.g. Senior React Developer" /></div>
+    <div class="form-group"><label class="form-label">Company name *</label><input class="form-input" id="pj-company" placeholder="Your company" /></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Location</label><input class="form-input" id="pj-location" placeholder="Gurugram, HR or Remote" /></div>
+      <div class="form-group"><label class="form-label">Job type</label>
+        <select class="form-select" id="pj-type">
+          <option>Full-time</option><option>Part-time</option><option>Contract</option><option>Remote</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Min salary</label><input class="form-input" id="pj-min" placeholder="e.g. $80k or ₹10 LPA" /></div>
+      <div class="form-group"><label class="form-label">Max salary</label><input class="form-input" id="pj-max" placeholder="e.g. $120k or ₹18 LPA" /></div>
+    </div>
+    <div class="form-group"><label class="form-label">Job description *</label><textarea class="form-textarea" id="pj-desc" style="min-height:100px" placeholder="Describe the role, requirements, and benefits..."></textarea></div>
+    <div class="form-group"><label class="form-label">Required skills</label><input class="form-input" id="pj-skills" placeholder="React, Node.js, AWS, ..." /></div>
+    <div class="success-banner" id="postSuccess"><i class="ti ti-circle-check" style="font-size:16px"></i> Job posted! It will go live after review within 24 hours.</div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('postJobModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitPost()">Post Job →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const jobs = [
+    { icon:"💻", title:"Frontend Developer", company:"TechCorp", location:"San Francisco, CA (Remote)", desc:"Build responsive interfaces with React, Tailwind CSS and modern JS frameworks.", salary:"$90k - $120k", type:"Remote", badgeClass:"badge-remote" },
+    { icon:"🎨", title:"UX Designer", company:"Designify", location:"New York, NY", desc:"Create user-centered designs and intuitive prototypes for web and mobile.", salary:"$85k - $105k", type:"Full-time", badgeClass:"badge-fulltime" },
+    { icon:"⚙️", title:"Backend Engineer (Node.js)", company:"ScaleFlow", location:"Austin, TX", desc:"Develop scalable APIs, optimize databases, and build microservices.", salary:"$110k - $140k", type:"Full-time", badgeClass:"badge-fulltime" },
+    { icon:"📊", title:"Data Analyst", company:"Insightlytics", location:"Chicago, IL", desc:"Analyze large datasets, build dashboards and provide actionable insights.", salary:"$70k - $90k", type:"Part-time", badgeClass:"badge-parttime" },
+    { icon:"☁️", title:"DevOps Engineer", company:"CloudNative", location:"Seattle, WA", desc:"Manage AWS infrastructure, CI/CD pipelines, and Kubernetes clusters.", salary:"$95k - $125k", type:"Contract", badgeClass:"badge-contract" },
+    { icon:"📋", title:"Product Manager", company:"InnovateLabs", location:"Remote", desc:"Lead product strategy, roadmap planning, and cross-functional team alignment.", salary:"$100k - $130k", type:"Remote", badgeClass:"badge-remote" },
+  ];
+
+  let currentFilter = 'All';
+
+  function renderJobs(list) {
+    const grid = document.getElementById('jobGrid');
+    document.getElementById('jobCount').textContent = `Showing ${list.length} job${list.length !== 1 ? 's' : ''}`;
+    if (list.length === 0) {
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-search-off"></i><p>No jobs found matching your criteria.</p></div>`;
+      return;
+    }
+    grid.innerHTML = list.map((j, i) => `
+      <div class="job-card">
+        <div class="card-top">
+          <div class="job-icon">${j.icon}</div>
+          <span class="badge ${j.badgeClass}">${j.type}</span>
+        </div>
+        <div class="job-title">${j.title}</div>
+        <div class="job-company">${j.company}</div>
+        <div class="job-location"><i class="ti ti-map-pin" style="font-size:12px"></i> ${j.location}</div>
+        <div class="job-desc">${j.desc}</div>
+        <div class="card-footer">
+          <span class="salary">${j.salary}</span>
+          <button class="apply-btn" onclick="openApply(${jobs.indexOf(j)})">Apply Now →</button>
+        </div>
+      </div>`).join('');
+  }
+
+  function filterJobs() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    let filtered = jobs;
+    if (currentFilter !== 'All') filtered = filtered.filter(j => j.type === currentFilter);
+    if (q) filtered = filtered.filter(j =>
+      j.title.toLowerCase().includes(q) ||
+      j.company.toLowerCase().includes(q) ||
+      j.desc.toLowerCase().includes(q) ||
+      j.location.toLowerCase().includes(q)
+    );
+    renderJobs(filtered);
+  }
+
+  function setFilter(type, btn) {
+    currentFilter = type;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterJobs();
+  }
+
+  function openApply(i) {
+    const j = jobs[i];
+    document.getElementById('applyJobTitle').textContent = 'Apply for: ' + j.title;
+    document.getElementById('applyJobCompany').textContent = j.company + ' · ' + j.location;
+    document.getElementById('applyJobDetails').innerHTML = `
+      <div class="detail-row"><span class="detail-label">Salary range</span><span class="detail-value">${j.salary}</span></div>
+      <div class="detail-row"><span class="detail-label">Job type</span><span class="detail-value">${j.type}</span></div>
+      <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value">${j.location}</span></div>`;
+    document.getElementById('applySuccess').classList.remove('show');
+    document.getElementById('applyModal').classList.add('active');
+  }
+
+  function openResume() {
+    document.getElementById('resumeSuccess').classList.remove('show');
+    document.getElementById('resumeModal').classList.add('active');
+  }
+
+  function openPostJob() {
+    document.getElementById('postSuccess').classList.remove('show');
+    document.getElementById('postJobModal').classList.add('active');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+
+  function submitApply() {
+    const fname = document.getElementById('a-fname').value.trim();
+    const email = document.getElementById('a-email').value.trim();
+    if (!fname || !email) { alert('Please fill in your name and email.'); return; }
+    document.getElementById('applySuccess').classList.add('show');
+    setTimeout(() => closeModal('applyModal'), 2800);
+  }
+
+  function submitResume() {
+    document.getElementById('resumeSuccess').classList.add('show');
+  }
+
+  function submitPost() {
+    const title = document.getElementById('pj-title').value.trim();
+    const company = document.getElementById('pj-company').value.trim();
+    if (!title || !company) { alert('Please fill in the job title and company name.'); return; }
+    // Add posted job to grid
+    const newJob = {
+      icon: '🏢',
+      title: title,
+      company: company,
+      location: document.getElementById('pj-location').value || 'Not specified',
+      desc: document.getElementById('pj-desc').value || 'See full description on application.',
+      salary: (document.getElementById('pj-min').value && document.getElementById('pj-max').value)
+        ? document.getElementById('pj-min').value + ' - ' + document.getElementById('pj-max').value
+        : 'Competitive',
+      type: document.getElementById('pj-type').value,
+      badgeClass: { 'Full-time':'badge-fulltime','Part-time':'badge-parttime','Contract':'badge-contract','Remote':'badge-remote' }[document.getElementById('pj-type').value] || 'badge-fulltime'
+    };
+    jobs.push(newJob);
+    filterJobs();
+    document.getElementById('postSuccess').classList.add('show');
+    setTimeout(() => closeModal('postJobModal'), 2500);
+  }
+
+  // Resume tabs
+  const resumeTabs = document.querySelectorAll('.resume-tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+  function switchTab(n) {
+    resumeTabs.forEach((t, i) => t.classList.toggle('active', i === n));
+    tabContents.forEach((c, i) => c.classList.toggle('active', i === n));
+  }
+
+  // Skills
+  function addSkill() {
+    const inp = document.getElementById('skillInput');
+    const val = inp.value.trim();
+    if (!val) return;
+    const list = document.getElementById('skillsList');
+    const tag = document.createElement('div');
+    tag.className = 'skill-tag';
+    tag.innerHTML = val + ' <button onclick="this.parentElement.remove()" title="Remove">×</button>';
+    list.appendChild(tag);
+    inp.value = '';
+    inp.focus();
+  }
+
+  // Add experience block
+  function addExperience() {
+    const container = document.getElementById('extraExpContainer');
+    const div = document.createElement('div');
+    div.style.borderTop = '1px solid #f3f4f6';
+    div.style.marginTop = '16px';
+    div.style.paddingTop = '16px';
+    div.innerHTML = `
+      <div class="form-group"><label class="form-label">Job title</label><input class="form-input" placeholder="Developer" /></div>
+      <div class="form-group"><label class="form-label">Company</label><input class="form-input" placeholder="Company name" /></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Start date</label><input class="form-input" type="month" /></div>
+        <div class="form-group"><label class="form-label">End date</label><input class="form-input" type="month" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">Responsibilities</label><textarea class="form-textarea" placeholder="Key responsibilities..."></textarea></div>`;
+    container.appendChild(div);
+  }
+
+  // Close overlay on background click
+  document.querySelectorAll('.overlay').forEach(o => {
+    o.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); });
+  });
+
+  // Initial render
+  renderJobs(jobs);
+</script>
+</body>
+</html>
